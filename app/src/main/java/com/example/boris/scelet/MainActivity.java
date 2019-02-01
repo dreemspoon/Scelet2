@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.boris.scelet.NeedClass.CheckAutority;
+import com.example.boris.scelet.NeedClass.http;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     CheckAutority fstart = new CheckAutority();
+    private static final String TAG = "MyApp";
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button nextintent = (Button) findViewById(R.id.button3);
         nextintent.setOnClickListener(this);
         Boolean fstrt = fstart.firststart();
-
+        Button gethttp = (Button) findViewById(R.id.gethttp);
+        gethttp.setOnClickListener(this);
         if (fstrt == true) {
     startPass(this);
 }
@@ -33,10 +36,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button3:{
                 startPass(this);
             break;
+
+                }
+            case R.id.gethttp: {
+                http gethttpapi = new http();
+               gethttpapi.start();
+                break;
             }
+        }
 
         }
-    }
+
 
     public void startPass(Context context) {
         Intent intent = new Intent(context,LoginFoarm.class);
