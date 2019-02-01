@@ -19,8 +19,8 @@ import okhttp3.Response;
 public class http {
 OkHttpClient httpClient = new OkHttpClient();
 String url = "http://89.219.32.195:6080/YT/hs/TradeCity";
-    public static final MediaType JSON
-            = MediaType.parse("application/json; charset=utf-8");
+//Создание медиатипа для того чтобы парсить строку в json
+public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = "MyApp";
   // Создание объекта Json из строки так , как Requst (Body) не принимает String ;
     JSONObject json;
