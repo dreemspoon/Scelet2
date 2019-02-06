@@ -35,21 +35,17 @@ public String responseHttpJsonString ;
 //Создание медиатипа для того чтобы парсить строку в json
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = "MyApp";
-// Обявляем интерфейс для его последующей реализации .
-     public interface ResultHandler{
-       void onSuccess(String response);
-       void onFailure(IOException e);
-   }
     // Создание объекта Json из строки так , как Requst (Body) не принимает String ;
     JSONObject json;
 
     {
         try {
-            json = new JSONObject(" {\n" +
-                    " \"Type\": \"Auth\",\n" +
-                    "\t\"User\": \"vIpljYV\",\n" +
-                    "\t\"Pass\": \"vIpljYVKRk\"\n" +
-                    "}");
+           // json = new JSONObject(" {\n" +
+             //       " \"Type\": \"Auth\",\n" +
+               //     "\t\"User\": \"vIpljYV\",\n" +
+                 //   "\t\"Pass\": \"vIpljYVKRk\"\n" +
+                   // "}");
+            json = new JSONObject("{\"Type\": \"GetCatalogs\"}");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -65,30 +61,23 @@ public String responseHttpJsonString ;
             .build();
     */
 
-    // РЕализуем интерфейс для передачи ответа из вызова http
-    ResultHandler resphttp = new ResultHandler() {
-        @Override
-        public void onSuccess(String response) {
-            responseHttpJsonString = response ;
-        Log.e("ResultHandler",responseHttpJsonString);
-        }
-
-        @Override
-        public void onFailure(IOException e) {
-
-        }
-    };
 
 
-    public void start() {
+
+    public void start(MainActivity.ResultHandler resphttp) {
+
+
         try {
             run(resphttp);
+
+
+
         } catch (IOException e) {
             Log.e(TAG, e.toString());
         }
        }
 
-     void run( final ResultHandler callback) throws IOException {
+     void run( final MainActivity.ResultHandler callback) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Authorization", "Basic dXBkYXRlOnVwZGF0ZQ==")
@@ -113,27 +102,6 @@ callback.onSuccess(myResponse);
 
      }
 
-    class DBHelper extends SQLiteOpenHelper {
 
-        public DBHelper(Context context) {
-            // конструктор суперкласса
-            super(context, "myDB", null, 1);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            Log.d("CreateDB", "--- onCreate database ---");
-            // создаем таблицу с полями
-            db.execSQL("create table mytable ("
-                    + "id integer primary key autoincrement,"
-                    + "httpresponse text"
-                    + ");");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-        }
-    }
 }
 
